@@ -1,0 +1,7 @@
+.page-header
+  = link_to company_path(@cash_management_table.company), class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-list-alt
+    Back
+  %h1 Edit Monthly Entry
+
+= render 'form'

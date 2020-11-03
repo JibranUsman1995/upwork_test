@@ -1,0 +1,71 @@
+.page-header
+  = link_to companies_path, class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-list-alt
+    Back
+  = link_to edit_company_path(@company), class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-pencil
+    Edit
+
+%dl.dl-horizontal
+  %dt Name:
+  %dd= @company.name
+  %dt Country:
+  %dd= @company.country
+
+.container
+  .page-header
+  %h1 Cash Management Table
+
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Initial cash
+        %th Cash out
+        %th Cash in
+        %th
+        %th
+        %th
+
+    %tbody
+      - @company.cash_management_tables.each do |cash_management_table|
+        %tr
+          %td= "#{cash_management_table.initial_cash} #{ISO3166::Country[@company.country].currency_code}"
+          %td= "#{cash_management_table.cash_out} #{ISO3166::Country[@company.country].currency_code}"
+          %td= "#{cash_management_table.cash_in} #{ISO3166::Country[@company.country].currency_code}"
+          %td= link_to 'Show', cash_management_table
+          %td= link_to 'Edit', edit_cash_management_table_path(cash_management_table)
+          %td= link_to 'Destroy', cash_management_table, data: { confirm: 'Are you sure?' }, method: :delete
+      %tr
+        - @cash_management_table = @company.cash_management_tables.new
+        = form_for @cash_management_table, html: { class: "form-horizontal", role: "form" } do |f|
+          -if @cash_management_table.errors.any?
+            .alert.alert-danger.alert-dismissable{role: "alert"}
+              %button.close{type: "button", data: {dismiss: "alert"} }
+                %span{aria: {hidden: "true"} } &times;
+                %span.sr-only Close
+              %h4= "#{pluralize(@cash_management_table.errors.count, "error")} prohibited this cash_management_table from being saved:"
+
+              %ul
+                - @cash_management_table.errors.full_messages.each do |msg|
+                  %li= msg
+          %td
+            .form-group
+              = f.label :initial_cash, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.number_field :initial_cash, class: 'form-control'
+          %td
+            .form-group
+              = f.label :cash_out, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.number_field :cash_out, class: 'form-control'
+          %td
+            .form-group
+              = f.label :cash_in, class: 'col-sm-2 control-label'
+              .col-sm-10
+                = f.number_field :cash_in, class: 'form-control'
+          %td
+            = f.hidden_field :company_id, value: @cash_management_table.company_id
+            .form-group
+              .col-sm-offset-2.col-sm-10
+                = f.submit 'Add Entry', class: 'btn btn-primary'

@@ -1,0 +1,18 @@
+.page-header
+  = link_to company_path(@cash_management_table.company), class: 'btn btn-default' do
+    %span.glyphicon.glyphicon-list-alt
+    Back
+  = link_to edit_cash_management_table_path(@cash_management_table), class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-pencil
+    Edit
+  %h1 Show cash_management_table
+
+%dl.dl-horizontal
+  %dt Initial cash:
+  %dd= @cash_management_table.initial_cash
+  %dt Cash out:
+  %dd= @cash_management_table.cash_out
+  %dt Cash in:
+  %dd= @cash_management_table.cash_in
+  %dt Post:
+  %dd= @cash_management_table.post

@@ -1,0 +1,28 @@
+.page-header
+  = link_to new_cash_management_table_path, class: 'btn btn-primary' do
+    %span.glyphicon.glyphicon-plus
+    New Cash management table
+  %h1 Listing cash_management_tables
+
+.table-responsive
+  %table.table.table-striped.table-bordered.table-hover
+    %thead
+      %tr
+        %th Initial cash
+        %th Cash out
+        %th Cash in
+        %th Post
+        %th
+        %th
+        %th
+
+    %tbody
+      - @cash_management_tables.each do |cash_management_table|
+        %tr
+          %td= cash_management_table.initial_cash
+          %td= cash_management_table.cash_out
+          %td= cash_management_table.cash_in
+          %td= cash_management_table.post
+          %td= link_to 'Show', cash_management_table
+          %td= link_to 'Edit', edit_cash_management_table_path(cash_management_table)
+          %td= link_to 'Destroy', cash_management_table, data: { confirm: 'Are you sure?' }, method: :delete

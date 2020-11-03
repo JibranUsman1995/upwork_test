@@ -1,0 +1,2 @@
+module CashManagementTablesHelper
+end

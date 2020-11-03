@@ -1,0 +1,28 @@
+= form_for @cash_management_table, html: { class: "form-horizontal", role: "form" } do |f|
+  -if @cash_management_table.errors.any?
+    .alert.alert-danger.alert-dismissable{role: "alert"}
+      %button.close{type: "button", data: {dismiss: "alert"} }
+        %span{aria: {hidden: "true"} } &times;
+        %span.sr-only Close
+      %h4= "#{pluralize(@cash_management_table.errors.count, "error")} prohibited this cash_management_table from being saved:"
+
+      %ul
+        - @cash_management_table.errors.full_messages.each do |msg|
+          %li= msg
+
+  .form-group
+    = f.label :initial_cash, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :initial_cash, class: 'form-control'
+  .form-group
+    = f.label :cash_out, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :cash_out, class: 'form-control'
+  .form-group
+    = f.label :cash_in, class: 'col-sm-2 control-label'
+    .col-sm-10
+      = f.number_field :cash_in, class: 'form-control'
+  = f.hidden_field :company_id, value: @cash_management_table.company_id
+  .form-group
+    .col-sm-offset-2.col-sm-10
+      = f.submit class: 'btn btn-primary'
